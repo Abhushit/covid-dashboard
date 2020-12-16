@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { auth } from "./../../firebase";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Login from "../auth/Login";
 import Dashboard from "../Dashboard/Dashboard";
 import DrawerMUI from "./../materialUI/DrawerMUI";
@@ -32,22 +37,18 @@ const Routing = (props) => {
               </>
             )}
           </Route>
-          {auth.currentUser && 
-            <>
-              <Route path="/dashboard">
-                <DrawerMUI />
-                <Dashboard />
-              </Route>
-              <Route path="/blogs">
-                <DrawerMUI />
-                <Blog />
-              </Route>
-              <Route path="/hospitals">
-                <DrawerMUI />
-                <Hospital />
-              </Route>
-            </>
-          }
+          <Route path="/dashboard">
+            <DrawerMUI />
+            <Dashboard />
+          </Route>
+          <Route path="/blogs">
+            <DrawerMUI />
+            <Blog />
+          </Route>
+          <Route path="/hospitals">
+            <DrawerMUI />
+            <Hospital />
+          </Route>
           <Route path="/login">
             <Login />
           </Route>

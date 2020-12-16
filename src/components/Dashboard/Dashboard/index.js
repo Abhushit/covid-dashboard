@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Api from "../../Api";
 import Chartss from "../../Chart";
 import Maper from "../../Map";
+import Accordionss from "../../materialUI/Accordion";
 import Cards from "../../materialUI/Cards";
 import TableCustom from "../../materialUI/TableCustom";
 
@@ -65,6 +66,7 @@ const Dashboard = (props) => {
   let [all, setAll] = useState("");
   let [district, setDistrict] = useState("");
   let [detail, setDetail] = useState("");
+  let [faq, setFaq] = useState("");
 
   useEffect((data) => {
     new Promise((resolve, reject) => {
@@ -86,6 +88,17 @@ const Dashboard = (props) => {
           reject(err);
         });
     });
+
+    new Promise((resolve, reject) => {
+      Api.getFaqs()
+        .then((res) => {
+          setFaq(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+
   }, []);
 
   const handleClick = (dis) => {
@@ -94,28 +107,28 @@ const Dashboard = (props) => {
       Api.getDistrict(dis.name)
         .then((resp) => {
           setDistrict(resp);
-          return new Promise((resolve, reject) => {
-            Api.getDistrictDetail(
-              district && district.data && district.data.map((item) => item.id)
-            )
-              .then((val) => {
-                setDetail(val);
-              })
-              .catch((err) => {
-                reject(err);
-              });
-          });
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+
+    new Promise((resolve, reject) => {
+      const d = district && district.data.map((item) => item.id);
+      Api.getDistrictDetail(...d)
+        .then((val) => {
+          setDetail(val);
         })
         .catch((err) => {
           reject(err);
         });
     });
   };
-
+console.log('faq >>', faq)
   return (
     <div className={classes.root}>
       <h1 className={classes.header}>Corona Tracker</h1>
-      
+
       <Grid container spacing={1}>
         <Grid item sm={8}>
           <div className={classes.detailBox}>
@@ -143,10 +156,11 @@ const Dashboard = (props) => {
           </div>
           <div className={classes.gap}>
             <h2 className={classes.header}>
-              Covid-19 Nepal Case - District Detail
+              Covid-19 Nepal Case - Click to view District Detail
             </h2>
             <Maper className={classes.gap} handleClick={handleClick} />
             {detail &&
+              detail.data &&
               (detail.data.length === 77 ? (
                 <Card className={classes.cardMap}>
                   Click the district you want to know about
@@ -188,6 +202,8 @@ const Dashboard = (props) => {
                 </Card>
               ))}
           </div>
+          <h2 className={classes.header}>Frequently Asked Questions</h2>
+          <Accordionss faq={faq && faq.data && faq.data.data} />
         </Grid>
         <Grid item sm={4}>
           <Paper className={classes.paperContainer}>
@@ -196,7 +212,6 @@ const Dashboard = (props) => {
             <h2 className={classes.header}>Continent Chart</h2>
             <Chartss />
           </Paper>
-
         </Grid>
       </Grid>
     </div>

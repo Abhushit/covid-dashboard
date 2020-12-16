@@ -2,7 +2,7 @@
   "name": "covid",
   "version": "0.1.0",
   "private": true,
-  "public": "dist/covid",
+  "public": "dist/covid-dash1",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
@@ -19,8 +19,7 @@
     "react-dom": "^17.0.1",
     "react-nepal-map": "^1.0.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "web-vitals": "^0.2.4"
+    "react-scripts": "4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

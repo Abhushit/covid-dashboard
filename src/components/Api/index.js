@@ -1,45 +1,52 @@
 import axios from "axios";
+const baseURL = process.env.REACT_APP_BASE_URL_WORLD;
+const nplURL = process.env.REACT_APP_BASE_URL_NEPAL;
+const infoURL = process.env.REACT_APP_BASE_URL_INFO;
 
-let url = "https://disease.sh/v3/covid-19";
-let coronaApi = "https://data.nepalcorona.info";
 
 const getCountries = () => {
-  let newUrl = url;
-
-  return axios.get(`${newUrl}/countries`);
+  const url = baseURL;
+  return axios.get(`${url}/countries`);
 };
 
 const getAll = () => {
-  let newUrl = url;
-
-  return axios.get(`${newUrl}/all`);
+  const url = baseURL;
+  return axios.get(`${url}/all`);
 };
 
 const getAllContinent = () => {
-  let newUrl = url;
-  return axios.get(`${newUrl}/continents`);
+  const url = baseURL;
+  return axios.get(`${baseURL}/continents`);
 };
 
 const getDistrict = (name) => {
-  let coronaUrl = coronaApi;
-  return axios.get(`${coronaUrl}/api/v1/districts?search=${name}`);
+  const url = nplURL;
+  return axios.get(`${url}/api/v1/districts?search=${name}`);
 };
 
 const getDistrictDetail = (id) => {
-  let coronaUrl = coronaApi;
-  return axios.get(`${coronaUrl}/api/v1/districts/${id}`);
+  const url = baseURL;
+  return axios.get(`${url}/api/v1/districts/${id}`);
 };
 
 const getNews = () => {
-  return axios.get(`https://nepalcorona.info/api/v1/news`);
+  const url = infoURL
+  return axios.get(`${url}/api/v1/news`);
 };
 
 const getMyths = () => {
-  return axios.get('https://nepalcorona.info/api/v1/myths');
+  const url = infoURL
+  return axios.get(`${url}/api/v1/myths`);
 }
 
 const getHospitals = () => {
-  return axios.get('https://nepalcorona.info/api/v1/hospitals');
+  const url = infoURL
+  return axios.get(`${url}/api/v1/hospitals`);
+}
+
+const getFaqs = () => {
+  const url = infoURL;
+  return axios.get(`${url}/api/v1/faqs`)
 }
 
 export default {
@@ -50,5 +57,6 @@ export default {
   getDistrictDetail,
   getNews,
   getMyths,
-  getHospitals
+  getHospitals,
+  getFaqs
 };
