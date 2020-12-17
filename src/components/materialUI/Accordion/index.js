@@ -12,9 +12,9 @@ import React from "react";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.light,
-    color: "#fff",
+    color: theme.palette.textColor,
     '& .MuiSvgIcon-root': {
-        color: '#fff',
+        color: theme.palette.textColor,
     }
   },
   margin: {
@@ -30,7 +30,7 @@ const Accordionss = ({ faq }) => {
         {faq &&
           faq.map(
             (items, i) =>
-              i < 10 && (
+              i < 12 && (
                 <Grid item sm={6}>
                   <div className={classes.margin}>
                     <Accordion className={classes.root}>

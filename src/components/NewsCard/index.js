@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.primary.light,
-    color: "#fff",
+    color: theme.palette.textColor,
     margin: theme.spacing(2),
   },
   myImg: {

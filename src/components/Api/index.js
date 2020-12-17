@@ -25,7 +25,7 @@ const getDistrict = (name) => {
 };
 
 const getDistrictDetail = (id) => {
-  const url = baseURL;
+  const url = nplURL;
   return axios.get(`${url}/api/v1/districts/${id}`);
 };
 
@@ -49,6 +49,11 @@ const getFaqs = () => {
   return axios.get(`${url}/api/v1/faqs`)
 }
 
+const getNepal = () => {
+  const url = infoURL;
+  return axios.get(`${url}/api/v1/data/nepal`)
+}
+
 export default {
   getCountries,
   getAll,
@@ -58,5 +63,6 @@ export default {
   getNews,
   getMyths,
   getHospitals,
-  getFaqs
+  getFaqs,
+  getNepal
 };

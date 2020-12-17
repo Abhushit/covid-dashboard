@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   menuIcon: {
       position: "absolute",
       right: "20px",
+  },
+  header:{
+    color: theme.palette.textColor,
+    float: "right"
   }
 }));
 
@@ -30,9 +34,9 @@ const Navbar = () => {
           >
             <MenuIcon  />
           </IconButton>
-          <Typography>
-            <h2>Nothing is of greater importance than the conservation of human life.</h2>
-          </Typography>
+          {/* <Typography  className={classes.header}>
+            <h4>Nothing is of greater importance than the conservation of human life.</h4>
+          </Typography> */}
         </Toolbar>
       </AppBar>
     </div>

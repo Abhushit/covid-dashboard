@@ -1,10 +1,18 @@
+import { makeStyles } from "@material-ui/core";
 import React from "react";
 import { DistrictMap } from "react-nepal-map";
 
-const Maper = (props) => {
+const useStyles = makeStyles((theme) => ({
+  map: {
+    margin: theme.spacing(5),
+    position: "relative",
+  },
+}));
 
+const Maper = (props) => {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.map}>
       <DistrictMap
         hoverColor="red"
         stroke="#000"

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     color: "red",
   },
   green: {
-    color: "#11d411",
+    color: "#22ad22",
   },
   purple: {
     color: "purple",
@@ -33,31 +33,45 @@ const useStyles = makeStyles((theme) => ({
   paperContainer: {
     padding: theme.spacing(3),
     backgroundColor: theme.palette.primary.light,
-    color: "#fff",
+    color: theme.palette.textColor,
+  },
+  paperNepal: {
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(2),
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.main,
+    fontSize: "14px"
+  },
+  bold: {
+    fontWeight: "700",
+    color: theme.palette.primary.dark,
   },
   gap: {
     margin: `${theme.spacing(3)}px 0`,
     position: "relative",
   },
+
   header: {
-    color: "#fff",
+    color: theme.palette.textColor,
     padding: `${theme.spacing(2)}px 0`,
   },
   cardMap: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
     display: "inline-block",
     flexDirection: "column",
     position: "absolute",
-    top: "0",
+    top: "30%",
     right: "65px",
+    fontSize: "13px",
     backgroundColor: theme.palette.primary.light,
-    color: "#fff",
+    color: theme.palette.textColor,
+    borderBottom: `3px solid ${theme.palette.primary.main}`,
   },
 }));
 
 const columns = [
   { key: "country", name: "Country" },
-  { key: "todayCases", name: "Today Cases" },
+  { key: "active", name: "Active Cases" },
 ];
 
 const Dashboard = (props) => {
@@ -67,6 +81,7 @@ const Dashboard = (props) => {
   let [district, setDistrict] = useState("");
   let [detail, setDetail] = useState("");
   let [faq, setFaq] = useState("");
+  let [nepal, setNepal] = useState("");
 
   useEffect((data) => {
     new Promise((resolve, reject) => {
@@ -99,6 +114,15 @@ const Dashboard = (props) => {
         });
     });
 
+    new Promise((resolve, reject) => {
+      Api.getNepal()
+        .then((res) => {
+          setNepal(res);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }, []);
 
   const handleClick = (dis) => {
@@ -124,11 +148,10 @@ const Dashboard = (props) => {
         });
     });
   };
-console.log('faq >>', faq)
+  console.log("nepal >>", nepal);
   return (
     <div className={classes.root}>
-      <h1 className={classes.header}>Corona Tracker</h1>
-
+      {/* box section */}
       <Grid container spacing={1}>
         <Grid item sm={8}>
           <div className={classes.detailBox}>
@@ -158,19 +181,17 @@ console.log('faq >>', faq)
             <h2 className={classes.header}>
               Covid-19 Nepal Case - Click to view District Detail
             </h2>
-            <Maper className={classes.gap} handleClick={handleClick} />
-            {detail &&
-              detail.data &&
+
+            {/* map section */}
+            <Maper handleClick={handleClick} />
+            {detail.data &&
               (detail.data.length === 77 ? (
                 <Card className={classes.cardMap}>
                   Click the district you want to know about
                 </Card>
               ) : (
                 <Card className={classes.cardMap}>
-                  <p>
-                    District:{" "}
-                    <span>{detail && detail.data && detail.data.title}</span>
-                  </p>
+                  <h2>{detail && detail.data && detail.data.title}</h2>
                   <p>
                     Total Cases:{" "}
                     <span className={classes.purple}>
@@ -202,15 +223,52 @@ console.log('faq >>', faq)
                 </Card>
               ))}
           </div>
+
+          {/* FAQ section */}
           <h2 className={classes.header}>Frequently Asked Questions</h2>
           <Accordionss faq={faq && faq.data && faq.data.data} />
         </Grid>
         <Grid item sm={4}>
           <Paper className={classes.paperContainer}>
-            <h2 className={classes.header}>Today's Cases</h2>
+            <h2 className={classes.header}>Active Cases</h2>
             <TableCustom columns={columns} rows={rows && rows.data} />
             <h2 className={classes.header}>Continent Chart</h2>
             <Chartss />
+          </Paper>
+
+          {/* Nepal section */}
+          <Paper mt={2} className={classes.paperNepal}>
+            <h2 className={classes.header}>Nepal</h2>
+            <Grid container>
+              <Grid item sm={6}>
+                <p>
+                  In Isolation : <span className={classes.bold}>{nepal && nepal.data.in_isolation}</span>
+                </p>
+                <p>
+                  Total Deaths : <span className={classes.bold}>{nepal && nepal.data.deaths}</span>
+                </p>
+                <p>
+                  Quarantined : <span className={classes.bold}>{nepal && nepal.data.quarantined}</span>
+                </p>
+                <p>
+                  Recovered : <span className={classes.bold}>{nepal && nepal.data.recovered}</span>
+                </p>
+              </Grid>
+              <Grid item sm={6}>
+                <p>
+                  Total Tested : <span className={classes.bold}>{nepal && nepal.data.tested_total}</span>
+                </p>
+                <p>
+                  Tested Positive : <span className={classes.bold}>{nepal && nepal.data.tested_positive}</span>
+                </p>
+                <p>
+                  Tested Negative : <span className={classes.bold}>{nepal && nepal.data.tested_negative}</span>
+                </p>
+                <p>
+                  Tested RDT : <span className={classes.bold}>{nepal && nepal.data.tested_rdt}</span>
+                </p>
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>

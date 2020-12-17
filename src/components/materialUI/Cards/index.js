@@ -3,10 +3,10 @@ import React from 'react'
 
 const useStyles = makeStyles(theme => ({
     root:{
-        padding: theme.spacing(5),
+        padding: theme.spacing(3),
         backgroundColor: theme.palette.primary.light,
-        color: "#fff",
-        margin: theme.spacing(2)
+        color: theme.palette.textColor,
+        margin: `0 ${theme.spacing(2)}px`
     },
     
 

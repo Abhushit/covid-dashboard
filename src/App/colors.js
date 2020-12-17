@@ -1,8 +1,9 @@
 const colors = {
     primary: {
-        light: "#3282b8",
-        main: "#0f4c75",
-        dark: "#1b262c"
+        light: "#a7c5eb",
+        main: "#cd5d7d",
+        dark: "#949cdf",
+        text: "#af0404"
     },
     secondary: {
         light: "#f1ae89",
@@ -21,7 +22,7 @@ const colors = {
         dark: "#f57c00",
         contrastText: "#fff"
     },
-    textColor: "#fff"
+    textColor: "#cd5d7d"
 }
 
 export default colors;

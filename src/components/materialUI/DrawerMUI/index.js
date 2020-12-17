@@ -28,9 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     color: "#fff",
+    backgroundColor: theme.palette.primary.main,
+    margin: `${theme.spacing(1)}px 0`,
   },
   listIcon: {
     color: "#fff",
+  },
+  header: {
+    color: theme.palette.textColor,
+    padding: `${theme.spacing(2)}px 0`,
+    textAlign: "center"
   },
 }));
 
@@ -55,7 +62,7 @@ const SideDrawer = () => {
       >
         <div>
           <Link to="/dashboard">
-            <img src={covid} className={classes.logo} />
+            <h1 className={classes.header}>Corona Tracker</h1>
           </Link>
         </div>
         <Divider />

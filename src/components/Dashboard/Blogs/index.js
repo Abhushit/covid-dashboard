@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
   },
   header: {
-    color: "#fff",
+    color: theme.palette.textColor,
     padding: `${theme.spacing(2)}px 0`,
   },
 }));
